@@ -1,0 +1,20 @@
+digraph {
+    "http://example.org/index.json" -> "application/vnd.tsbiot.catalogue+json" [label="urn:X-tsbiot:rels:isContentType"];
+    "http://example.org/index.json" -> "root" [label="urn:X-tsbiot:rels:hasDescription:en"];
+    "http://example.org/index.json" -> "http://example.org/a.json" [label="urn:X-tsbiot:rels:hasResource"];
+    "http://example.org/a.json" -> "application/vnd.tsbiot.catalogue+json" [label="urn:X-tsbiot:rels:isContentType"];
+    "http://example.org/a.json" -> "Link to Sub-Catalogue A" [label="urn:X-tsbiot:rels:hasDescription:en"];
+    "http://example.org/index.json" -> "http://example.org/b.json" [label="urn:X-tsbiot:rels:hasResource"];
+    "http://example.org/b.json" -> "application/vnd.tsbiot.catalogue+json" [label="urn:X-tsbiot:rels:isContentType"];
+    "http://example.org/b.json" -> "Link to Sub-Catalogue B" [label="urn:X-tsbiot:rels:hasDescription:en"];
+    "http://example.org/b.json" -> "b" [label="urn:X-tsbiot:rels:hasDescription:en"];
+    "http://example.org/a.json" -> "a" [label="urn:X-tsbiot:rels:hasDescription:en"];
+    "http://example.org/a.json" -> "http://example.org/a1.json" [label="urn:X-tsbiot:rels:hasResource"];
+    "http://example.org/a1.json" -> "application/vnd.tsbiot.catalogue+json" [label="urn:X-tsbiot:rels:isContentType"];
+    "http://example.org/a1.json" -> "Link to Sub-Catalogue A1" [label="urn:X-tsbiot:rels:hasDescription:en"];
+    "http://example.org/a.json" -> "http://example.org/a2.json" [label="urn:X-tsbiot:rels:hasResource"];
+    "http://example.org/a2.json" -> "application/vnd.tsbiot.catalogue+json" [label="urn:X-tsbiot:rels:isContentType"];
+    "http://example.org/a2.json" -> "Link to Sub-Catalogue A2" [label="urn:X-tsbiot:rels:hasDescription:en"];
+    "http://example.org/a2.json" -> "a2" [label="urn:X-tsbiot:rels:hasDescription:en"];
+    "http://example.org/a1.json" -> "a1" [label="urn:X-tsbiot:rels:hasDescription:en"];
+}

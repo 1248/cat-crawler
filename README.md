@@ -29,6 +29,13 @@ Render Graph
     node crawler.js URL > out.dot
     dot -Tpng out.dot -o out.png
 
+Example
+-------
+
+Crawling the hierarchical catalogue in examples/tree will produce a graph similar to the following:
+
+![Knowledge Graph](/examples/tree-output/tree.png "Knowledge Graph")
+
 License
 -------
 
