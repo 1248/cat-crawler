@@ -32,6 +32,7 @@ Render Graph
 Example
 -------
 
+To crawl a catalogue, it must be exposed through HTTP on a web server.
 Crawling the hierarchical catalogue in examples/tree will produce a graph similar to the following:
 
 ![Knowledge Graph](/examples/tree-output/tree.png "Knowledge Graph")
