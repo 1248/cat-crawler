@@ -19,6 +19,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+var argv = require('optimist').argv;
+
 var request = require('request');
 var URI = require('URIjs');
 
@@ -67,7 +69,8 @@ function expandCatalogue(url, doc) {
             storeFact({
                 subject: url,
                 predicate: doc.metadata[i].rel,
-                object: doc.metadata[i].val
+                object: doc.metadata[i].val,
+                context: url
             });
         }
     } catch(e) {
@@ -83,7 +86,8 @@ function expandCatalogue(url, doc) {
             storeFact({
                 subject: url,
                 predicate: "urn:X-tsbiot:rels:hasResource",
-                object: item.href
+                object: item.href,
+                context: url
             });
             for (var j=0;j<item.metadata.length;j++) {
                 var mdata = item.metadata[j];
@@ -91,7 +95,8 @@ function expandCatalogue(url, doc) {
                 storeFact({
                     subject: item.href,
                     predicate: mdata.rel,
-                    object: mdata.val
+                    object: mdata.val,
+                    context: url
                 });
 
                 // if we find a link to a catalogue, follow it
@@ -142,17 +147,35 @@ function dumpGraph() {
     }
 }
 
+// dump a graph in N-Quads format
+function dumpNQuads() {
+    function f(s) { // FIXME, not a great way to detect URI
+        if (s.match(/^http/) || s.match(/^mqtt/) || s.match(/^urn:/) || s.match(/^\//))
+            return '<'+s+'>';
+        else
+            return '"'+s+'"';
+    }
+    for (var i=0;i<facts.length;i++) {
+        console.log(f(facts[i].subject)+' '+f(facts[i].predicate)+' '+f(facts[i].object)+' '+f(facts[i].context)+' .');
+    }
+}
+
+function help() {
+    console.log(" --url <Catalogue to crawl> [--nquads]");
+}
+
 // get URL from command line
-if (process.argv.length < 3) {
-    console.log("Supply catalogue URL");
+if (argv.url === undefined) {
+    help();
     process.exit(1);
 }
 // add root catalogue URL to crawl list
-unexplored.push(process.argv[2]);
+unexplored.push(argv.url);
 
 crawl(function() {
-    dumpGraph();
+    if (argv.nquads)
+        dumpNQuads();
+    else
+        dumpGraph();
 });
-
-
 

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "request": "~2.14.0",
-    "URIjs": "~1.10.2"
+    "URIjs": "~1.10.2",
+    "optimist": "~0.6.0"
   }
 }
