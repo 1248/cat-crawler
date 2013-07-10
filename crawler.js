@@ -64,12 +64,12 @@ function expandCatalogue(url, doc) {
     var i;
     try {
         // store metadata for catalogue
-        for (i=0;i<doc.metadata.length;i++) {
-            //console.log("CATL-FACT "+url+" "+doc.metadata[i].rel+" "+doc.metadata[i].val);
+        for (i=0;i<doc['item-metadata'].length;i++) {
+            //console.log("CATL-FACT "+url+" "+doc['item-metadata'][i].rel+" "+doc['item-metadata'][i].val);
             storeFact({
                 subject: url,
-                predicate: doc.metadata[i].rel,
-                object: doc.metadata[i].val,
+                predicate: doc['item-metadata'][i].rel,
+                object: doc['item-metadata'][i].val,
                 context: url
             });
         }
@@ -89,8 +89,8 @@ function expandCatalogue(url, doc) {
                 object: item.href,
                 context: url
             });
-            for (var j=0;j<item.metadata.length;j++) {
-                var mdata = item.metadata[j];
+            for (var j=0;j<item['i-object-metadata'].length;j++) {
+                var mdata = item['i-object-metadata'][j];
                 //console.log("ITEM-FACT "+item.href+" "+mdata.rel+" "+mdata.val);
                 storeFact({
                     subject: item.href,
