@@ -41,7 +41,16 @@ function storeFact(o) {
 
 function fetch(root, cb) {
     //console.log("FETCH "+root);
-    request(root, function (err, rsp, body) {
+    //request(root, function (err, rsp, body) {
+
+    var h = {};
+    if (argv.key !== undefined)
+        h.Authorization = 'Basic ' + new Buffer(argv.key + ':').toString('base64')
+
+    request.get({
+        url: root,
+        headers: h
+    }, function(err, rsp, body) {
         if (!err && rsp.statusCode == 200) {
             if (cb !== undefined) {
                 try {
@@ -55,7 +64,7 @@ function fetch(root, cb) {
             if (rsp)
                 cb("Status code " + rsp.statusCode, null);
             else
-                cb("Fetch error", null);
+                cb("Fetch error "+err, null);
         }
     });
 }
@@ -162,6 +171,7 @@ function dumpNQuads() {
 
 function help() {
     console.log(" --url <Catalogue to crawl> [--nquads]");
+    console.log(" [--key <key to use>]");
 }
 
 // get URL from command line
